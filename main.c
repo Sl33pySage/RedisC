@@ -113,12 +113,17 @@ int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
 
 
 /* Step 4: Listen
+  All the previous steps are just passing paramets. The socket is actually created after listen().
+  The OS will automatically handle the TCP handshakes and place established connections in a queue.
+  The application can then retrieve them via accept().
+*/
+
+// listen
+rv = listen(fd, SOMAXCONN);
+if (rv) { die("listen()"); }
+
+// The 2nd arugment is the size of the queue. SOMAXCONN is 4096 on Linux. This argument does not matter because accept() is not a bottleneck.
 
 
 
 
-
-
-
-  
- */
