@@ -121,8 +121,76 @@ int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
 // listen
 rv = listen(fd, SOMAXCONN);
 if (rv) { die("listen()"); }
-
 // The 2nd arugment is the size of the queue. SOMAXCONN is 4096 on Linux. This argument does not matter because accept() is not a bottleneck.
+
+
+// Step 5: Accept connections
+// The server enters a loop that accepts and processes each client connection.
+
+while (true) {
+  //accept
+  struct sockaddr_in client_addr = {};
+  socklen_t addrlen = sizeof(client_addr);
+  int connfd = accept(fd, (struct sockaddr *)&client_addr, &addrlen);
+  if (connfd < 0) {
+    continue; // error
+  }
+
+
+  do_something(connfd);
+  close(connfd);
+// The accept() syscall also returns the peer's address. The addrlen argument is both the input and output size.
+
+
+// Step 6: Read & Write
+// Our dummy processing is just 1 read() and 1 write().
+
+static void do_something(int connfd) {
+    char rbuf[64] = {};
+    ssize_t n = read(connfd, rbuf, sizeof(rbuf) -1);
+    if (n < 0) {
+      msg("read() error");
+      return;
+    }
+    printf("client says: %s\n", rbuf);
+
+
+    char wbuf[] = "world";
+    write(connfd, wbuf, strlen(wbuf));
+}
+
+// You can replace read/write with send/recv. The difference is that send/recv can pass some optional flags that we don't need.
+
+ssize_t read(int fd, void *buf, size_t len);
+ssize_t recv(int fd, void *buf, size_t len, int flags); // read
+ssize_t write(int fd, const void *buf, size_t len);
+ssize_t send(int fd, const void *buf, size_t len, int flags); // write
+
+// For now, we have ignored the return value of write() and there is no error handling. We'll write real programs in the next chapter.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
