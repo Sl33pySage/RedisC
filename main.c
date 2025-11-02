@@ -168,12 +168,27 @@ ssize_t send(int fd, const void *buf, size_t len, int flags); // write
 
 // For now, we have ignored the return value of write() and there is no error handling. We'll write real programs in the next chapter.
 
+// 3.3 Create a TCP Client
+// Write something, read back from the server, then close the connection.
+
+  int fd = socket(AF_INET, SOCK_STREAM, 0);
+  if (fd < 0) {
+    die("socket()");
+  }
 
 
+  struct sockaddr_in addr = {};
+  addr.sin_family = AF_INET;
+  addr.sin_port = ntohs(1234);
+  addr.sin_addr.s_addr = ntohl(INADDR_LOOPBACK); // 127.0.0.1
+  int rv = connect(fd, (const struct sockaddr *)&addr, sizeof(addr));
+  if (rv) {
+    die("connect");
+  }
 
 
-
-
+  char msg[] = "hello";
+  write(fd, msg, strlen(msg));
 
 
 
