@@ -191,10 +191,13 @@ ssize_t send(int fd, const void *buf, size_t len, int flags); // write
   write(fd, msg, strlen(msg));
 
 
-
-
-
-
+  char rbuf[64] = {};
+  ssize_t n = read(fd, rbuf, sizeof(rbuf) -1);
+  if (n < 0) {
+    die("read");
+  }
+  printf("server says: %s\n", rbuf);
+  close(fd);
 
 
 
