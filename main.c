@@ -199,7 +199,16 @@ ssize_t send(int fd, const void *buf, size_t len, int flags); // write
   printf("server says: %s\n", rbuf);
   close(fd);
 
-
+// INADDR_LOOPBACK is defined as 0x7f000001, which is the address 1270.0.1.
+// Compile our programs with the following command line: 
+  // gg++ -Wall -Wextra -02 -g 03_server.cpp -o server
+  // g++ -Wall -Wextra -02 -g 03_client.cpp -o client
+  // Run ./server in one window and then run ./client in another window:
+  // $./server
+  // client says: hello
+  //
+  // $./client
+  // server says: world
 
 
 
