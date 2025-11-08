@@ -31,4 +31,6 @@ int main() {
   // uint32_t ntohl(uint32_t netlong); n-to-h is the same as h-to-a
   // uint32_t htobe32(uint32_t host_32bits); "be" stands for big-endian
   // uint32_t be32toh(uint32_t big_endian_32bits);
+
+  int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
 }
