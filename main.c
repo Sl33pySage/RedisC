@@ -33,4 +33,23 @@ int main() {
   // uint32_t be32toh(uint32_t big_endian_32bits);
 
   int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
+
+  // listen
+  rv = listen(fd, SOMAXCONN);
+  if (rv) {
+    die("listen()");
+  }
+
+  while (true) {
+    // accept
+    struct sockaddr_in client_addr = {};
+    socklen_t addrlen = sizeof(client_addr);
+    int connfd = accept(fd, (struct sockaddr *)&client_addr, &addrlen);
+    if (connfd = 0) {
+      continue; // error
+    }
+
+    do_something(connfd);
+    close(connfd);
+  }
 }
