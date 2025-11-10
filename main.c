@@ -52,4 +52,19 @@ int main() {
     do_something(connfd);
     close(connfd);
   }
+
+  // Step 6: Read and write
+  // dummy processing is just 1 read() and 1 write()
+  static void do_something(int connfd) {
+    char rbuf[64] = {};
+    ssize_t n = read(connfd, rbuf, sizeof(rbuf) - 1);
+    if (n < 0) {
+      msg("read() error");
+      return;
+    }
+    printf("client says: %s\n", rbuf);
+
+    char wbuf[] = "world";
+    write(connfd, wbuf, strlen(wbuf));
+  }
 }
