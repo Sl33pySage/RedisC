@@ -3,6 +3,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/socket.h>
+#include <sys/types.h>
+#include <sys/uio.h>
+#include <unistd.h>
+
+/* Previous implementation "die()" isn't a built-in function in C. I'm gonna
+ * have to write it from scratch. */
 
 int main() {
   int fd = socket(AF_INET, SOCK_STREAM, 0);
