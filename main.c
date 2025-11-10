@@ -1,6 +1,7 @@
 #include <netinet/in.h>
 #include <netinet/ip.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -9,6 +10,12 @@
 
 /* Previous implementation "die()" isn't a built-in function in C. I'm gonna
  * have to write it from scratch. */
+
+// custom function to simulate "die()" behavior
+void die(const char *message) {
+  fprintf(stderr, "Fatal Error: %s\n", message);
+  exit(EXIT_FAILURE);
+}
 
 int main() {
   int fd = socket(AF_INET, SOCK_STREAM, 0);
