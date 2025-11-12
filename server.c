@@ -54,5 +54,11 @@ int main() {
     struct sockaddr_in client_addr = {};
     socklen_t addrlen = sizeof(client_addr);
     int connfd = accept(fd, (struct sockaddr *)&client_addr, &addrlen);
+    if (connfd < 0) {
+      continue; // error
+    }
+    do_something(connfd);
+    close(connfd);
   }
+  return 0;
 }
