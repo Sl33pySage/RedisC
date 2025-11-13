@@ -63,7 +63,15 @@ int main() {
     if (connfd < 0) {
       continue; // error
     }
-    do_something(connfd);
+    // do_something(connfd);
+
+    // only serves one client connection at once;
+    while (1) {
+      int32_t err = one_request(connfd);
+      if (err) {
+        break;
+      }
+    }
     close(connfd);
   }
   return 0;
