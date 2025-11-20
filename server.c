@@ -71,6 +71,20 @@ int main() {
       if (err) {
         break;
       }
+      /* The one_request function will read 1 request and write 1 response. The
+       * problem is, how does it know how many bytes to read? This is the
+       * primary function of an application protocol. Usually protocol has 2
+       * levels of structures:
+       * 1. A high-level structure to split the byte stream into messages.
+       * 2. The structure within a mess;age, a.k.a. deserialization.
+       *
+       * A simple binary protocol
+       * We will do the first step is to split the byte stream into messages.
+       * For now, both the request and response messages are just strings. len
+       * msg1  len msg2  more.. 4B   ...   4B  ... Each message consists of a
+       * 4-byte little-endian integer indicating the length of the request and
+       * the variable-length payload. This is not the real Redic protocol. We'll
+       * discuss the alternative protocol designs later.*/
     }
     close(connfd);
   }
