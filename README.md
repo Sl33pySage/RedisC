@@ -2,4 +2,4 @@
 
 Redis Server in C
 
-# 4.1 Multiple requests in a singe connection
+# 4.2 Parse the Protocol
